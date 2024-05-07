@@ -7,4 +7,5 @@ urlpatterns = [
     path('bots/get', BotsList.as_view()),
     path('users/get', UsersList.as_view()),
     path('users/delete/<int:pk>', UserDetail.as_view()),
+    path('users/put/<int:pk>', UserDetail.as_view()),
 ]
