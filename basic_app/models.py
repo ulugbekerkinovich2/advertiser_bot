@@ -19,7 +19,7 @@ class Users(models.Model):
     username = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     bot_id = models.ForeignKey(Bots, on_delete=models.CASCADE)
-
+    status = models.CharField(max_length=64, default='blocked')
     def __str__(self):
         return self.username
     
