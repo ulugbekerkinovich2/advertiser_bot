@@ -5,11 +5,10 @@ from basic_app.serializers import BotsSerializer, UsersSerializer
 # Create your views here.
 from rest_framework import generics, status
 from rest_framework.response import Response
-
+from django.shortcuts import get_object_or_404
 class BotsList(generics.ListCreateAPIView):
     queryset = Bots.objects.all()
     serializer_class = BotsSerializer
-
 
 
 class UsersList(generics.ListCreateAPIView):
@@ -28,12 +27,18 @@ class UsersList(generics.ListCreateAPIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
+        bot = get_object_or_404(Bots, id=int(bot_id))
+
+        # defaults ichidan FK va lookup fieldlarni olib tashlaymiz
+        data.pop("bot_id", None)
+        data.pop("chat_id", None)
+
         obj, created = Users.objects.update_or_create(
             chat_id=chat_id,
-            bot_id=bot_id,
+            bot_id=bot,
             defaults={
                 **data,
-                "status": "active"
+                "status": "active",
             }
         )
 
