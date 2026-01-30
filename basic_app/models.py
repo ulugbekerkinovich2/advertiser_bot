@@ -15,7 +15,7 @@ class Bots(models.Model):
 class Users(models.Model):
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
-    chat_id = models.CharField(max_length=100, unique=True)
+    chat_id = models.CharField(max_length=100, unique=False)
     username = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     bot_id = models.ForeignKey(Bots, on_delete=models.CASCADE)
